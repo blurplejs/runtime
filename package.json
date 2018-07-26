@@ -1,6 +1,6 @@
 {
   "name": "@blurple/runtime",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "main": "index.js",
   "author": "Christopher Mühl <christopher@dieschittigs.de>",
   "license": "MIT",
