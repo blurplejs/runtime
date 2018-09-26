@@ -2,13 +2,25 @@
   "name": "@blurple/runtime",
   "version": "0.0.2",
   "main": "index.js",
-  "author": "Christopher Mühl <christopher@dieschittigs.de>",
+  "author": "Christopher Mühl <christopher@padarom.io>",
   "license": "MIT",
   "bin": {
     "blurple": "./cli.js"
   },
+  "scripts": {
+    "build": "babel src -d dist",
+    "watch": "babel src --watch -d dist",
+    "prepublish": "npm run build"
+  },
   "dependencies": {
-    "discord.js": "^11.3.2",
-    "@blurple/extension": "latest"
+    "@blurple/extension": "latest",
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.8.6",
+    "discord.js": "^11.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0"
   }
 }

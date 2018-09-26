@@ -1,6 +1,6 @@
-const Command = require('@blurple/extension').Command
+import { Command } from '@blurple/extension'
 
-module.exports = class {
+export default class {
 
     constructor (extension) {
         this.extension = extension

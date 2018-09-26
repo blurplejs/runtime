@@ -1,7 +1,7 @@
-const Discord = require('discord.js')
-const BotCustomizer = require('./BotCustomizer')
+import Discord from 'discord.js'
+import BotCustomizer from './BotCustomizer'
 
-module.exports = class DiscordBot {
+export default class {
 
     constructor (token) {
         this.token = token
