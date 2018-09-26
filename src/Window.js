@@ -5,13 +5,13 @@ export default class {
     constructor () {
         this.screen = blessed.screen({
             smartCSR: true,
-            title: 'blurple.js'
+            title: 'blurple.js',
+            cursor: { blink: true }
         })
 
-        this.botList = blessed.box({
+        this.bots = blessed.list({
             width: '25%',
             height: '100%',
-            content: 'Hello {bold}world{/bold}!',
             tags: true,
             padding: 1,
             border: { type: 'line' },
@@ -26,6 +26,7 @@ export default class {
             height: '100%-3',
             tags: true,
             padding: 1,
+            mouse: true,
             scrollable: true,
             border: { type: 'line' },
             style: {
@@ -38,18 +39,27 @@ export default class {
             this.logs.focus()
         })
 
-        this.commands = blessed.box({
+        this.commands = blessed.textbox({
             left: '25%',
             top: '100%-3',
             width: '75%',
             height: 3,
             padding: { left: 1, right: 1 },
-            content: 'Hello {bold}world{/bold}!',
             tags: true,
+            inputOnFocus: true,
             border: { type: 'line' },
             style: {
-                fg: 'white'
+                fg: 'white',
+                focus: {
+                    border: { fg: 'green' }
+                }
             }
+        })
+
+        this.commands.on('submit', (e) => {
+            this.logs.add(e)
+            this.commands.clearValue()
+            this.commands.focus()
         })
 
         let label = blessed.text({
@@ -63,7 +73,11 @@ export default class {
             return process.exit(0)
         })
 
-        this.screen.append(this.botList)
+        this.screen.key(['c'], (ck, key) => {
+            this.commands.focus()
+        })
+
+        this.screen.append(this.bots)
         this.screen.append(this.commands)
         this.screen.append(this.logs)
         this.screen.append(label)

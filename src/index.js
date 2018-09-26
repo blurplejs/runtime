@@ -27,6 +27,7 @@ export default function () {
         }
 
         window.logs.add(`{inverse}${name}{/inverse} booted`)
+        window.bots.add(`{bold}${name}{/bold}`)
     
         bot.login()
     }
