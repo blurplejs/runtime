@@ -1,6 +1,7 @@
 import Window from './window'
 import DiscordBot from './DiscordBot'
 import { Extension } from '@blurple/extension'
+import WebhookServer from './WebhookServer'
 
 export default function () {
     // Load configuration
@@ -11,7 +12,14 @@ export default function () {
 
     window.logs.add('Welcome to blurple.js')
     window.logs.add('Read the documentation at https://blurple.js.org')
-    window.logs.add('')
+    window.logs.add()
+
+    let webhooks = new WebhookServer(8086)
+    webhooks.handler = (req, res) => {
+        window.logs.add(req.params)
+        res.send('Hello')
+    }
+    webhooks.start()
 
     // Iterate through all configured bots
     for (let name of Object.keys(blurple)) {
