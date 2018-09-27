@@ -9,6 +9,15 @@ export default class {
             cursor: { blink: true }
         })
 
+        this.screen.key(['escape', 'q', 'C-c'], (ck, key) => {
+            // TODO: Add confirm dialog
+            return process.exit(0)
+        })
+
+        this.screen.key(['c'], (ck, key) => {
+            this.commands.focus()
+        })
+
         this.bots = blessed.list({
             width: '25%',
             height: '100%',
@@ -36,7 +45,6 @@ export default class {
 
         this.logs.on('click', (d) => {
             this.logs.add('Log clicked: ' + Date.now())
-            this.logs.focus()
         })
 
         this.commands = blessed.textbox({
@@ -67,14 +75,6 @@ export default class {
             left: 2,
             content: '{#7289da-fg}{bold}blurple{/bold}.js{/}',
             padding: { left: 1, right: 1 }
-        })
-
-        this.screen.key(['escape', 'q', 'C-c'], (ck, key) => {
-            return process.exit(0)
-        })
-
-        this.screen.key(['c'], (ck, key) => {
-            this.commands.focus()
         })
 
         this.screen.append(this.bots)

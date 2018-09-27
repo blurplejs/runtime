@@ -10,7 +10,9 @@
   "scripts": {
     "build": "babel src -d dist",
     "watch": "babel src --watch -d dist",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "test": "nyc --reporter=html --reporter=text mocha",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
     "@blurple/extension": "latest",
@@ -21,6 +23,12 @@
   "devDependencies": {
     "@babel/cli": "^7.1.0",
     "@babel/core": "^7.1.0",
-    "@babel/preset-env": "^7.1.0"
+    "@babel/preset-env": "^7.1.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-http": "^4.2.0",
+    "coveralls": "^3.0.2",
+    "mocha": "^5.2.0",
+    "nyc": "^13.0.1"
   }
 }
