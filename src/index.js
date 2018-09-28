@@ -1,4 +1,4 @@
-import Window from './window'
+import Window from './Window'
 import DiscordBot from './DiscordBot'
 import { Extension } from '@blurple/extension'
 import WebhookServer from './WebhookServer'
@@ -9,29 +9,16 @@ export default class {
         this.bots = {}
     }
 
-    configuration () {
-        let config = {}
-        config.blurple = require(process.cwd() + '/blurple')
+    async start (configuration) {
+        // let window = this.createWindow()
+        // window.logs.add('Welcome to blurple.js')
+        // window.logs.add('Read the documentation at https://blurple.js.org')
+        // window.logs.add()
 
-        try {
-            config.webhooks = require(process.cwd() + '/webhooks')
-        } catch (e) {}
-
-        return config
-    }
-
-    start () {
-        let loadedConfig = this.configuration()
-
-        let window = this.createWindow()
-        window.logs.add('Welcome to blurple.js')
-        window.logs.add('Read the documentation at https://blurple.js.org')
-        window.logs.add()
-
-        if (loadedConfig.webhooks) {
-            this.webhooks = new WebhookServer(loadedConfig.webhooks.port)
+        if (configuration.webhooks) {
+            this.webhooks = new WebhookServer(configuration.webhooks.port)
             this.webhooks.handler = (req, res) => {
-                window.logs.add(req.params)
+            //     window.logs.add(req.params)
                 res.send('Hello')
             }
 
@@ -39,8 +26,8 @@ export default class {
         }
 
         // Iterate through all configured bots
-        for (let name of Object.keys(loadedConfig.blurple)) {
-            let config = loadedConfig.blurple[name]
+        for (let name of Object.keys(configuration.blurple)) {
+            let config = configuration.blurple[name]
         
             // Create a new discord client for the bot
             let bot = new DiscordBot(config.token)
@@ -51,17 +38,27 @@ export default class {
                 bot.addExtension(new Extension())
             }
 
-            window.logs.add(`{inverse}${name}{/inverse} booted`)
-            window.bots.add(`{bold}${name}{/bold}`)
+            // window.logs.add(`{inverse}${name}{/inverse} booted`)
+            // window.bots.add(`{bold}${name}{/bold}`)
         
             this.bots[name] = bot
-            bot.login()
+
+            try {
+                await bot.login()
+            } catch (e) {
+                // ...
+            }
+        }
+    }
+
+    shutdown () {
+        for (let bot of Object.keys(this.bots)) {
+            this.bots[bot].shutdown()
         }
     }
 
     createWindow () {
         let window = new Window()
-        window.screen.render()
 
         return window
     }

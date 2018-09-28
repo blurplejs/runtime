@@ -31,7 +31,11 @@ export default class {
     login () {
         this.bindEvents()
 
-        this.client.login(this.token)
+        return this.client.login(this.token)
+    }
+
+    shutdown () {
+        this.client.destroy()
     }
 
 }

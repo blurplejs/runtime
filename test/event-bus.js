@@ -4,7 +4,6 @@ import EventBus from '../src/EventBus'
 
 chai.use(spies)
 
-const expect = chai.expect
 const should = chai.should()
 
 describe('Event Bus', function () {

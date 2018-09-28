@@ -17,11 +17,12 @@
     "watch": "babel src --watch -d dist",
     "prepublish": "npm run build",
     "testOnly": "nyc mocha",
-    "test": "nyc --reporter=html --reporter=text --all --include src mocha",
+    "test": "nyc --reporter=html --reporter=text --all --include src --exclude src/Window.js mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
     "@blurple/extension": "latest",
+    "babel-polyfill": "^6.26.0",
     "blessed": "^0.1.81",
     "discord.js": "^11.3.2",
     "express": "^4.16.3"
@@ -29,6 +30,7 @@
   "devDependencies": {
     "@babel/cli": "^7.1.0",
     "@babel/core": "^7.1.0",
+    "@babel/plugin-transform-regenerator": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/register": "^7.0.0",
     "babel-plugin-istanbul": "^5.0.1",
@@ -38,6 +40,7 @@
     "chai-spies": "^1.0.0",
     "coveralls": "^3.0.2",
     "mocha": "^5.2.0",
-    "nyc": "^13.0.1"
+    "nyc": "^13.0.1",
+    "sinon": "^6.3.4"
   }
 }
