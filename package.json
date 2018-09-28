@@ -7,6 +7,11 @@
   "bin": {
     "blurple": "./cli.js"
   },
+  "nyc": {
+    "require": [
+      "@babel/register"
+    ]
+  },
   "scripts": {
     "build": "babel src -d dist",
     "watch": "babel src --watch -d dist",
@@ -24,9 +29,12 @@
     "@babel/cli": "^7.1.0",
     "@babel/core": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
+    "@babel/register": "^7.0.0",
+    "babel-plugin-istanbul": "^5.0.1",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.2.0",
+    "chai-spies": "^1.0.0",
     "coveralls": "^3.0.2",
     "mocha": "^5.2.0",
     "nyc": "^13.0.1"
