@@ -21,7 +21,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
-    "@blurple/extension": "latest",
+    "@blurple/extension": "file://../extension",
     "babel-polyfill": "^6.26.0",
     "blessed": "^0.1.81",
     "discord.js": "^11.3.2",

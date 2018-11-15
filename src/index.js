@@ -10,18 +10,19 @@ export default class {
     }
 
     async start (configuration) {
-        // let window = this.createWindow()
-        // window.logs.add('Welcome to blurple.js')
-        // window.logs.add('Read the documentation at https://blurple.js.org')
-        // window.logs.add()
+        let window = this.createWindow()
+        window.logs.add('Welcome to blurple.js')
+        window.logs.add('Read the documentation at https://blurple.js.org')
+        window.logs.add()
 
         if (configuration.webhooks) {
             this.webhooks = new WebhookServer(configuration.webhooks.port)
             this.webhooks.handler = (req, res) => {
-            //     window.logs.add(req.params)
+                window.logs.add(req.params)
                 res.send('Hello')
             }
 
+            window.logs.add(`Webhook server started on *:${configuration.webhooks.port}.`)
             this.webhooks.start()
         }
 
@@ -38,8 +39,8 @@ export default class {
                 bot.addExtension(new Extension())
             }
 
-            // window.logs.add(`{inverse}${name}{/inverse} booted`)
-            // window.bots.add(`{bold}${name}{/bold}`)
+            window.logs.add(`{inverse}${name}{/inverse} booted`)
+            window.bots.add(`{bold}${name}{/bold}`)
         
             this.bots[name] = bot
 
