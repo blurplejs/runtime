@@ -17,7 +17,7 @@ export default class {
     start () {
         this.app = express()
 
-        this.app.all('*', this.handler)
+        // this.app.all('*', this.handler)
         this.app.listen(this.port)
     }
 

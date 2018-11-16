@@ -2,10 +2,10 @@ import { Command, Webhook } from '@blurple/extension'
 
 export default class {
 
-    constructor (extension) {
+    constructor (extension, express) {
         this.extension = extension
+        this.express = express
         this.commands = []
-        this.webhooks = []
     }
 
     command (signature) {
@@ -15,11 +15,10 @@ export default class {
         return command
     }
 
-    webhook (route) {
-        let webhook = new Webhook(this.extension, route)
-        this.webhooks.push(webhook)
-
-        return webhook
+    webhook (route, handler) {
+        if (!this.express) return
+        
+        this.express.get(route, handler)
     }
 
 }

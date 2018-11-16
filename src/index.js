@@ -18,11 +18,12 @@ export default class {
         if (configuration.webhooks) {
             this.webhooks = new WebhookServer(configuration.webhooks.port)
             this.webhooks.handler = (req, res) => {
-                window.logs.add(req.params)
-                res.send('Hello')
+                for (let bot of Object.keys(this.bots)) {
+                    this.bots[bot].handleWebhook(req, res)
+                }
             }
 
-            window.logs.add(`Webhook server started on *:${configuration.webhooks.port}.`)
+            window.logs.add(`Webhook server started on *:${configuration.webhooks.port}`)
             this.webhooks.start()
         }
 
@@ -31,12 +32,17 @@ export default class {
             let config = configuration.blurple[name]
         
             // Create a new discord client for the bot
-            let bot = new DiscordBot(config.token)
+            let bot = new DiscordBot(config.token, this.webhooks ? this.webhooks.app : null)
+            bot.window = window.logs
             
             // Iterate through all extensions
             for (let extension of config.extensions) {
-                let Extension = require(process.cwd() + '/' + extension)
-                bot.addExtension(new Extension())
+                try {
+                    let Extension = require(process.cwd() + '/' + extension)
+                    bot.addExtension(new Extension())
+                } catch (e) {
+                    window.logs.add(e)
+                }
             }
 
             window.logs.add(`{inverse}${name}{/inverse} booted`)

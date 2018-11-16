@@ -43,9 +43,9 @@ export default class {
             }
         })
 
-        this.logs.on('click', (d) => {
-            this.logs.add('Log clicked: ' + Date.now())
-        })
+        // this.logs.on('click', (d) => {
+        //     this.logs.add('Log clicked: ' + Date.now())
+        // })
 
         this.commands = blessed.textbox({
             left: '25%',

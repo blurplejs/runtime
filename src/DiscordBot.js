@@ -3,10 +3,12 @@ import BotCustomizer from './BotCustomizer'
 
 export default class {
 
-    constructor (token) {
+    constructor (token, express) {
         this.token = token
         this.client = new Discord.Client()
         this.extensions = []
+
+        this.express = express
     }
 
     bindEvents () {
@@ -22,7 +24,7 @@ export default class {
     }
 
     addExtension (extension) {
-        let customizer = new BotCustomizer(extension)
+        let customizer = new BotCustomizer(extension, this.express)
         extension.register(customizer)
 
         this.extensions.push(customizer)
