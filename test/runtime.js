@@ -1,11 +1,12 @@
-import 'babel-polyfill'
-import chai from 'chai'
-import sinon from 'sinon'
 import Runtime from '../src/index'
-
-const should = chai.should()
+import Window from './stubs/Window'
+import sinon from 'sinon'
 
 describe('Runtime', function () {
+
+    before(() => {
+        Window.mock()
+    })
 
     it('should boot up with an example configuration', function () {
         let runtime = new Runtime()

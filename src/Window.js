@@ -3,6 +3,10 @@ import blessed from 'blessed'
 export default class {
     
     constructor () {
+        this.setup()
+    }
+
+    setup () {
         this.screen = blessed.screen({
             smartCSR: true,
             title: 'blurple.js',
@@ -65,7 +69,7 @@ export default class {
         })
 
         this.commands.on('submit', (e) => {
-            this.logs.add(e)
+            this.logs().add(e)
             this.commands.clearValue()
             this.commands.focus()
         })
@@ -82,5 +86,8 @@ export default class {
         this.screen.append(this.logs)
         this.screen.append(label)
     }
+
+    logs () { return this.logs }
+    bots () { return this.bots }
 
 }

@@ -5,6 +5,7 @@ export default class {
     constructor (extension, express) {
         this.extension = extension
         this.express = express
+        
         this.commands = []
     }
 

@@ -1,10 +1,9 @@
+import EventBus from '../src/EventBus'
 import chai from 'chai'
 import spies from 'chai-spies'
-import EventBus from '../src/EventBus'
 
 chai.use(spies)
-
-const should = chai.should()
+chai.should()
 
 describe('Event Bus', function () {
 

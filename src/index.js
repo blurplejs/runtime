@@ -3,17 +3,18 @@ import DiscordBot from './DiscordBot'
 import { Extension } from '@blurple/extension'
 import WebhookServer from './WebhookServer'
 
-export default class {
+export default class Runtime {
     
-    constructor () {
+    constructor (hideWindow = false) {
         this.bots = {}
+        this.hideWindow = hideWindow
     }
 
     async start (configuration) {
         let window = this.createWindow()
-        window.logs.add('Welcome to blurple.js')
-        window.logs.add('Read the documentation at https://blurple.js.org')
-        window.logs.add()
+        window.logs().add('Welcome to blurple.js')
+        window.logs().add('Read the documentation at https://blurple.js.org')
+        window.logs().add()
 
         if (configuration.webhooks) {
             this.webhooks = new WebhookServer(configuration.webhooks.port)
@@ -23,7 +24,7 @@ export default class {
                 }
             }
 
-            window.logs.add(`Webhook server started on *:${configuration.webhooks.port}`)
+            window.logs().add(`Webhook server started on *:${configuration.webhooks.port}`)
             this.webhooks.start()
         }
 
@@ -33,7 +34,7 @@ export default class {
         
             // Create a new discord client for the bot
             let bot = new DiscordBot(config.token, this.webhooks ? this.webhooks.app : null)
-            bot.window = window.logs
+            bot.window = window.logs()
             
             // Iterate through all extensions
             for (let extension of config.extensions) {
@@ -41,12 +42,12 @@ export default class {
                     let Extension = require(process.cwd() + '/' + extension)
                     bot.addExtension(new Extension())
                 } catch (e) {
-                    window.logs.add(e)
+                    window.logs().add(e)
                 }
             }
 
-            window.logs.add(`{inverse}${name}{/inverse} booted`)
-            window.bots.add(`{bold}${name}{/bold}`)
+            window.logs().add(`{inverse}${name}{/inverse} booted`)
+            window.bots().add(`{bold}${name}{/bold}`)
         
             this.bots[name] = bot
 
