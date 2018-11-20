@@ -22,7 +22,7 @@ export default class {
             this.commands.focus()
         })
 
-        this.bots = blessed.list({
+        this._bots = blessed.list({
             width: '25%',
             height: '100%',
             tags: true,
@@ -33,7 +33,7 @@ export default class {
             }
         })
 
-        this.logs = blessed.log({
+        this._logs = blessed.log({
             left: '25%',
             width: '75%',
             height: '100%-3',
@@ -81,13 +81,13 @@ export default class {
             padding: { left: 1, right: 1 }
         })
 
-        this.screen.append(this.bots)
+        this.screen.append(this._bots)
         this.screen.append(this.commands)
-        this.screen.append(this.logs)
+        this.screen.append(this._logs)
         this.screen.append(label)
     }
 
-    logs () { return this.logs }
-    bots () { return this.bots }
+    logs () { return this._logs }
+    bots () { return this._bots }
 
 }

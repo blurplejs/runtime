@@ -11,7 +11,7 @@ export default class Runtime {
     }
 
     async start (configuration) {
-        let window = this.createWindow()
+        let window = new Window()
         window.logs().add('Welcome to blurple.js')
         window.logs().add('Read the documentation at https://blurple.js.org')
         window.logs().add()
@@ -47,7 +47,10 @@ export default class Runtime {
                 try {
                     let Extension = require(process.cwd() + '/' + extension)
                     let ext = new Extension(config)
-                    ext.log = window.logs
+
+                    // TODO: Temporary until we have an actual API we expose to extensions
+                    ext.log = window.logs()
+                    ext.client = bot.client
 
                     bot.addExtension(ext)
                 } catch (e) {
@@ -72,12 +75,6 @@ export default class Runtime {
         for (let bot of Object.keys(this.bots)) {
             this.bots[bot].shutdown()
         }
-    }
-
-    createWindow () {
-        let window = new Window()
-
-        return window
     }
 
 }
