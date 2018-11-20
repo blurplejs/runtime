@@ -38,9 +38,18 @@ export default class Runtime {
             
             // Iterate through all extensions
             for (let extension of config.extensions) {
+                let config = {}
+                if (Array.isArray(extension)) {
+                    config = extension[1]
+                    extension = extension[0]
+                }
+
                 try {
                     let Extension = require(process.cwd() + '/' + extension)
-                    bot.addExtension(new Extension())
+                    let ext = new Extension(config)
+                    ext.log = window.logs
+
+                    bot.addExtension(ext)
                 } catch (e) {
                     window.logs().add(e)
                 }
