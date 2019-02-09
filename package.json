@@ -23,7 +23,7 @@
   "dependencies": {
     "@blurple/extension": "0.0.3",
     "blessed": "^0.1.81",
-    "discord.js": "^11.4.2",
+    "discord.js": "git+https://github.com/discordjs/discord.js.git",
     "express": "^4.16.4",
     "node-opus": "^0.3.1"
   },
