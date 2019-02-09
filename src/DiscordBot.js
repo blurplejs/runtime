@@ -8,11 +8,24 @@ export default class {
         this.client = new Discord.Client()
         this.extensions = []
 
+        this.ready = false
+
         this.express = express
     }
 
     bindEvents () {
         this.client.on('message', this.onMessage.bind(this))
+        this.client.on('ready', this.boot.bind(this))
+    }
+
+    boot () {
+        if (!this.ready) return this.ready = true
+
+        this.extensions.forEach((ext) => {
+          if (ext.extension.boot) {
+            ext.extension.boot()
+          }
+        })
     }
 
     onMessage (message) {

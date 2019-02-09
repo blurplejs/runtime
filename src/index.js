@@ -4,7 +4,7 @@ import { Extension } from '@blurple/extension'
 import WebhookServer from './WebhookServer'
 
 export default class Runtime {
-    
+
     constructor (hideWindow = false) {
         this.bots = {}
         this.hideWindow = hideWindow
@@ -31,11 +31,11 @@ export default class Runtime {
         // Iterate through all configured bots
         for (let name of Object.keys(configuration.blurple)) {
             let config = configuration.blurple[name]
-        
+
             // Create a new discord client for the bot
             let bot = new DiscordBot(config.token, this.webhooks ? this.webhooks.app : null)
             bot.window = window.logs()
-            
+
             // Iterate through all extensions
             for (let extension of config.extensions) {
                 let config = {}
@@ -56,11 +56,13 @@ export default class Runtime {
                 } catch (e) {
                     window.logs().add(e)
                 }
+
+                bot.boot()
             }
 
             window.logs().add(`{inverse}${name}{/inverse} booted`)
             window.bots().add(`{bold}${name}{/bold}`)
-        
+
             this.bots[name] = bot
 
             try {
