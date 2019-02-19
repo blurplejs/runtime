@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-import { isString } from '.'
+import { createScreen } from './gui'
 
-console.log(isString('15'))
+const screen = createScreen('blurple.js')
