@@ -12,7 +12,7 @@
     "watch": "tsc --watch",
     "prepublish": "npm run build",
     "testOnly": "nyc mocha -r ts-node/register test/**/*.ts",
-    "test": "nyc --reporter=html --reporter=text --all --include src --exclude src/Window.js mocha",
+    "test": "nyc --reporter=html --reporter=text --all --require ts-node/register mocha -r ts-node/register test/**/*.ts",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "nyc": {
@@ -41,6 +41,7 @@
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.6",
     "chai": "^4.2.0",
+    "coveralls": "^3.0.2",
     "mocha": "^6.0.0",
     "nyc": "^13.3.0",
     "source-map-support": "^0.5.10",
