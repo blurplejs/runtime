@@ -1,47 +1,49 @@
 {
   "name": "@blurple/runtime",
   "version": "0.0.2",
-  "main": "index.js",
+  "main": "dist/index.js",
   "author": "Christopher Mühl <christopher@padarom.io>",
   "license": "MIT",
   "bin": {
-    "blurple": "./cli.js"
-  },
-  "nyc": {
-    "require": [
-      "@babel/register"
-    ]
+    "blurple": "dist/cli.js"
   },
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
     "prepublish": "npm run build",
-    "testOnly": "nyc mocha",
+    "testOnly": "nyc mocha -r ts-node/register test/**/*.ts",
     "test": "nyc --reporter=html --reporter=text --all --include src --exclude src/Window.js mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "include": [
+      "lib/**/*.ts"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "reporter": [
+      "html"
+    ],
+    "all": true
+  },
   "dependencies": {
-    "@blurple/extension": "0.0.3",
     "blessed": "^0.1.81",
     "discord.js": "^11.3.2",
     "express": "^4.16.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
-    "@babel/plugin-transform-regenerator": "^7.0.0",
-    "@babel/preset-env": "^7.1.6",
-    "@babel/register": "^7.0.0",
-    "babel-plugin-istanbul": "^5.1.0",
-    "babel-polyfill": "^6.26.0",
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
     "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
-    "chai-http": "^4.2.0",
-    "chai-spies": "^1.0.0",
-    "coveralls": "^3.0.2",
-    "mocha": "^5.2.0",
-    "nyc": "^13.1.0",
-    "sinon": "^6.3.5",
+    "mocha": "^6.0.0",
+    "nyc": "^13.3.0",
+    "source-map-support": "^0.5.10",
+    "ts-node": "^8.0.2",
     "typescript": "^3.3.3"
   }
 }
